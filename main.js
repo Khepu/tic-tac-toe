@@ -1,7 +1,8 @@
-
 let state = [0, 0, 0,
              0, 0, 0,
              0, 0, 0];
+
+let history = [state];
 
 const player1 = 1;
 const player2 = 2;
@@ -28,14 +29,9 @@ const checkState = state => {
     const player2spots = filterSpots(state, player2);
     const emptySpots = filterSpots(state, 0);
 
-    const conditions = [[0, 4, 8],
-                        [2, 4, 6],
-                        [0, 1, 2],
-                        [3, 4, 5],
-                        [6, 7, 8],
-                        [0, 3, 6],
-                        [1, 4, 7],
-                        [2, 5, 8]];
+    const conditions = [[0, 4, 8], [2, 4, 6],             //diagonals
+                        [0, 1, 2], [3, 4, 5], [6, 7, 8],  //horizontals
+                        [0, 3, 6], [1, 4, 7], [2, 5, 8]]; //verticals
 
     if (conditions.map(containsp(player1spots)).some(identity)) {
         return 1;
@@ -51,6 +47,9 @@ const checkState = state => {
 // Gets all legal states, shuffles them and returns the first one
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
+
+const score = result =>
+
 
 const start = (state) => {
     while(checkState == -1){
