@@ -48,6 +48,7 @@ const checkState = state => {
     return -1;
 };
 
+// Gets all legal states, shuffles them and returns the first one
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
