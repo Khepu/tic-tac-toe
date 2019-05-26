@@ -10,9 +10,9 @@ const player2 = 2;
 const clone = arr => arr.slice(0);
 const identity = x => x;
 
-const legalMoves = (s, player) =>
-    s.map((spot, i) => spot == 0 ? i : -1)
-        .filter(spot => spot != -1);
+const legalMoves = (state, player) =>
+    state.map((spot, i) => spot == 0 ? i : -1)
+      .filter(spot => spot != -1);
 
 const updateState = (state, spot, player) =>
       state.map((s, i) => i == spot ? player : s);
@@ -49,9 +49,9 @@ const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
 const score = result =>
+      null;
 
-
-const start = (state) => {
+const start = state => {
     while(checkState == -1){
 
     }
