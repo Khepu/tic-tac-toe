@@ -25,12 +25,13 @@ const containsp = spots => condition =>
       condition.map(c => spots.includes(c)).filter(identity).length == 3;
 
 const checkState = state => {
+    if (history.length < 6){
+        return -1;
+    }
+
     const player1spots = filterSpots(state, player1);
     const player2spots = filterSpots(state, player2);
 
-    if(player1spots.length == 0 || player2spots.length == 0){
-        return -1;
-    }
 
     const emptySpots = filterSpots(state, 0);
 
