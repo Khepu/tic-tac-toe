@@ -27,6 +27,11 @@ const containsp = spots => condition =>
 const checkState = state => {
     const player1spots = filterSpots(state, player1);
     const player2spots = filterSpots(state, player2);
+
+    if(player1spots.length == 0 || player2spots.length == 0){
+        return -1;
+    }
+
     const emptySpots = filterSpots(state, 0);
 
     const conditions = [[0, 4, 8], [2, 4, 6],             //diagonals
