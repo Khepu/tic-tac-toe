@@ -51,8 +51,15 @@ const easyBot = state =>
 const score = result =>
       null;
 
+let over = false;
 const start = state => {
-    while(checkState == -1){
+    players = [player1, player2];
 
+
+    while(!over) {
+        turn = Math.random() < 0.5 ? 0 : 1;
+        while(checkState == -1) {
+
+        }
     }
 };
