@@ -53,13 +53,29 @@ const score = result =>
 
 let over = false;
 const start = state => {
-    players = [player1, player2];
-
+    const players = [player1, player2];
+    let isOver = checkState(state);
 
     while(!over) {
-        turn = Math.random() < 0.5 ? 0 : 1;
-        while(checkState == -1) {
+        let turn = Math.random() < 0.5 ? 0 : 1;
 
+        while(isOver == -1) {
+            turn = turn ^ 1;
+            const player = players[turn];
+
+            if (player == 2) {
+                state = easyBot(state);
+            } else if (player == 1) {
+                legalMoves(state, player1)
+                    .map(s => [evaluate(s), s])
+                    .reduce((acc, val) => acc[0] > val[0] ? acc : val);
+            }
+
+            history.push(state);
+            isOver = checkState(state);
         }
+
+        train(history, isOver);
+
     }
 };
