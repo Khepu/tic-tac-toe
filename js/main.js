@@ -48,15 +48,12 @@ const checkState = state => {
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
-const score = result =>
-      null;
-
-let over = false;
 const start = state => {
     const players = [player1, player2];
     let isOver = checkState(state);
+    let end = false;
 
-    while(!over) {
+    while(!end) {
         let turn = Math.random() < 0.5 ? 0 : 1;
 
         while(isOver == -1) {

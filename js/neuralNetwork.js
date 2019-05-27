@@ -1,31 +1,45 @@
 const model = tf.sequential();
 
-const hidden1 = tf.layers.dense({
-    units: 18,
-    inputdim: 9,
-    inputShape: [9],
-    kernelInitializer: 'randomUniform',
-    activation: 'relu'
-});
-model.add(hidden1);
-
-const hidden2 = tf.layers.dense({
+const input = tf.layers.dense({
     units: 9,
+    inputShape: [1, 9, 1],
     kernelInitializer: 'randomUniform',
-    activation: 'relu'
+    activation: 'sigmoid'
 });
-model.add(hidden2);
+
+const hidden = tf.layers.dense({
+    units: 18,
+    kernelInitializer: 'randomUniform',
+    activation: 'sigmoid'
+});
 
 const output = tf.layers.dense({
     units: 1,
-    kernelInitializer: 'randomUniform'
+    kernelInitializer: 'randomUniform',
+    activation: 'sigmoid'
 });
+
+const learing_rate = 0.001;
+const sgdOpt = tf.train.sgd(learing_rate);
+
+
+model.add(input);
+//model.add(hidden);
 model.add(output);
-
-learing_rate = 0.001;
-
-const sgd0pt = tf.train.sgd(learing_rate);
 model.compile({
-    optimizer: sgd0pt,
+    optimizer: sgdOpt,
     loss: tf.losses.meanSquaredError
 });
+
+function train(history, result) {
+    if (result != 1){
+        result = 0;
+    }
+
+    history.map(s => model.fit(tf.tensor(s), result));
+}
+
+function evaluate(state){
+    return model.predict(tf.tensor(state));
+}
+
