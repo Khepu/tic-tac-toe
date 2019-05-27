@@ -34,11 +34,11 @@ const checkState = state => {
                         [0, 3, 6], [1, 4, 7], [2, 5, 8]]; //verticals
 
     if (conditions.map(containsp(player1spots)).some(identity)) {
-        return 1;
+        return 1; // Nikise o prwtos paiktis (to nevroniko)
     } else if (conditions.map(containsp(player2spots)).some(identity)) {
-        return 2;
+        return 2; // Nikise o deuteros paiktis (to bot)
     } else if (emptySpots == 0) {
-        return 0;
+        return 0; // Sunexeia paixnidiou
     }
 
     return -1;
