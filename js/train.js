@@ -1,17 +1,19 @@
-function train(possibleActions, state) {
+function train(history, result) {
     // Gets the model
     // Returns the trained model
 
-    if (state == -1) {
-        // continue the game
-    } else if (state == 0) {
+    corrected_scores = [];
+
+    if (result == 0) {
         // isopalia
-    } else if (state == 1) {
+
+    } else if (result == 1) {
         // paiktis pou mathainei me to nevroniko
-    } else if (state == 2) {
+
+    } else if (result == 2) {
         // bot to play games with
-    } 
+        
+    }
 
 
 }
-    
