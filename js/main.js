@@ -7,7 +7,6 @@ let history = [state];
 const player1 = 1;
 const player2 = 2;
 
-const clone = arr => arr.slice(0);
 const identity = x => x;
 
 const legalMoves = (state, player) =>
@@ -31,8 +30,6 @@ const checkState = state => {
 
     const player1spots = filterSpots(state, player1);
     const player2spots = filterSpots(state, player2);
-
-
     const emptySpots = filterSpots(state, 0);
 
     const conditions = [[0, 4, 8], [2, 4, 6],             //diagonals
@@ -54,31 +51,37 @@ const checkState = state => {
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
-const start = state => {
+const start = () => {
     const players = [player1, player2];
     let isOver = checkState(state);
-    let end = false;
+    let end = 5000;
 
-    while(!end) {
+    while(end--) {
         let turn = Math.random() < 0.5 ? 0 : 1;
+        startingState = state;
 
         while(isOver == -1) {
             turn = turn ^ 1;
             const player = players[turn];
 
             if (player == 2) {
-                state = easyBot(state);
+                state = updateState(state, easyBot(state), player2);
             } else if (player == 1) {
                 state = legalMoves(state, player1)
+                    .map(s => updateState(state, s, player1))
                     .map(s => [evaluate(s), s])
-                    .reduce((acc, val) => acc[0] > val[0] ? acc : val);
+                    .reduce((acc, val) => acc[0] > val[0] ? acc : val, [0, 0])[1];
             }
 
             history.push(state);
             isOver = checkState(state);
         }
-
+        state = startingState;
         train(history, isOver);
+        history = [state];
+        isOver = -1;
+        console.log("One more down!!!");
 
     }
+    return "Done";
 };
