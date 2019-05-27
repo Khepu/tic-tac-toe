@@ -9,6 +9,7 @@ const input = tf.layers.dense({
 
 const hidden = tf.layers.dense({
     units: 18,
+    //inputShape: [18],
     kernelInitializer: 'randomUniform',
     activation: 'sigmoid'
 });
