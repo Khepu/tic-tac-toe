@@ -66,7 +66,7 @@ const start = state => {
             if (player == 2) {
                 state = easyBot(state);
             } else if (player == 1) {
-                legalMoves(state, player1)
+                state = legalMoves(state, player1)
                     .map(s => [evaluate(s), s])
                     .reduce((acc, val) => acc[0] > val[0] ? acc : val);
             }
