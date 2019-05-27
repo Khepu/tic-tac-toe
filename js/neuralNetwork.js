@@ -36,7 +36,7 @@ function train(history, result) {
         result = 0;
     }
 
-    history.map(s => model.fit(tf.tensor2d(s, [1, 9]), result));
+    history.map(s => model.fit(tf.tensor2d(s, [1, 9]), [result]));
 }
 
 function evaluate(state){
