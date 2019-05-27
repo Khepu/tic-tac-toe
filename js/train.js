@@ -6,7 +6,7 @@ function train(possibleActions, state) {
         // continue the game
     } else if (state == 0) {
         // isopalia
-    }else if (state == 1) {
+    } else if (state == 1) {
         // paiktis pou mathainei me to nevroniko
     } else if (state == 2) {
         // bot to play games with

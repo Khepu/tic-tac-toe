@@ -38,10 +38,10 @@ const checkState = state => {
     } else if (conditions.map(containsp(player2spots)).some(identity)) {
         return 2; // Nikise o deuteros paiktis (to bot)
     } else if (emptySpots == 0) {
-        return 0; // Sunexeia paixnidiou
+        return 0; // Isopalia
     }
 
-    return -1;
+    return -1; // Sunexeia game
 };
 
 // Gets all legal states, shuffles them and returns the first one
