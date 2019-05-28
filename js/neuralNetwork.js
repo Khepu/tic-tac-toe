@@ -9,7 +9,6 @@ const input = tf.layers.dense({
 
 const hidden = tf.layers.dense({
     units: 18,
-    //inputShape: [18],
     kernelInitializer: 'randomUniform',
     activation: 'sigmoid'
 });
@@ -36,7 +35,7 @@ function train(history, result) {
         result = 0;
     }
 
-    history.map(s => model.fit(tf.tensor2d(s, [1, 9]), [result]));
+    history.map(s => model.fit(tf.tensor2d(s, [1, 9]), result));
 }
 
 function evaluate(state){
