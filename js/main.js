@@ -58,7 +58,7 @@ const start = () => {
 
     while(end--) {
         let turn = Math.random() < 0.5 ? 0 : 1;
-        startingState = state;
+        const startingState = state;
 
         while(isOver == -1) {
             turn = turn ^ 1;
@@ -81,8 +81,44 @@ const start = () => {
         history = [state];
         isOver = -1;
         console.log("One more down!!!");
-
     }
     return "Done";
+};
+
+const initManual = () => {
+    state = [0, 0, 0,
+             0, 0, 0,
+             0, 0, 0];
+
+    history = [state];
+    [...document.getElementsByTagName("img")]
+        .map(img => img.onclick = play(img.id));
+    graphics(state);
+};
+
+const play = pos => () =>{
+    state = updateState(state, pos, player2);
+    history.push(state);
+    graphics(state);
+
+    if(checkState(state) != -1){
+        setTimeout(() => "", 1000);
+        initManual();
+        return;
+    }
+
+    setTimeout(() => "", 1000);
+
+    state = legalMoves(state, player1)
+        .map(s => updateState(state, s, player1))
+        .map(s => [evaluate(s), s])
+        .reduce((acc, val) => acc[0] > val[0] ? acc : val, [0, 0])[1];
+    history.push(state);
+    graphics(state);
+
+    if(checkState(state) != -1){
+        setTimeout(() => "", 1000);
+        initManual();
+    }
 };
 
