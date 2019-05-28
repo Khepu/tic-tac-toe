@@ -34,8 +34,8 @@ function train(history, result) {
     if (result != 1){
         result = 0;
     }
-
-    history.map(s => model.fit(tf.tensor2d(s, [1, 9]), result));
+//    tf.tensor2d(result, [1, 1])
+    history.map(s => model.fit(tf.tensor1d(s), tf.tensor1d([...result])));
 }
 
 function evaluate(state){

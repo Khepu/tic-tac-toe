@@ -96,14 +96,23 @@ const initManual = () => {
     graphics(state);
 };
 
+const printEnd = (result, player) =>
+      console.log(result == player ? "Player " + player + " wins!" : "Draw!");
+
+
 const play = pos => () =>{
+    if(state[pos] != 0){
+        return;
+    }
+
     state = updateState(state, pos, player2);
     history.push(state);
     graphics(state);
 
-    if(checkState(state) != -1){
-        setTimeout(() => "", 1000);
-        initManual();
+    let check = checkState(state);
+    if(check != -1){
+        printEnd(check, player2);
+        setTimeout(() => initManual(), 3000);
         return;
     }
 
@@ -116,9 +125,10 @@ const play = pos => () =>{
     history.push(state);
     graphics(state);
 
-    if(checkState(state) != -1){
-        setTimeout(() => "", 1000);
-        initManual();
+    check = checkState(sate);
+    if(check != -1){
+        printEnd(check, player1);
+        setTimeout(() => initManual(), 3000);
     }
 };
 
