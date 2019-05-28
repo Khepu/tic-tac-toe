@@ -30,12 +30,13 @@ model.compile({
     loss: tf.losses.meanSquaredError
 });
 
-function train(history, result) {
+async function train(history, result) {
     if (result != 1){
         result = 0;
     }
-//    tf.tensor2d(result, [1, 1])
-    history.map(s => model.fit(tf.tensor1d(s), tf.tensor1d([...result])));
+
+    targets = Array(history.length).fill(result);
+    await model.fit(tf.tensor2d(history, [history.length, 9]), tf.tensor2d(targets, [history.length, 1]));
 }
 
 function evaluate(state){

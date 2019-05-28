@@ -51,10 +51,10 @@ const checkState = state => {
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
-const start = () => {
+const start = async games => {
     const players = [player1, player2];
     let isOver = checkState(state);
-    let end = 5000;
+    let end = games;
 
     while(end--) {
         let turn = Math.random() < 0.5 ? 0 : 1;
@@ -77,7 +77,7 @@ const start = () => {
             isOver = checkState(state);
         }
         state = startingState;
-        train(history, isOver);
+        await train(history, isOver);
         history = [state];
         isOver = -1;
         console.log("One more down!!!");
