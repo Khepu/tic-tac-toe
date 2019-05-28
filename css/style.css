@@ -14,3 +14,8 @@ table {
 table td {
     border: 5px solid black;
 }
+
+img {
+    width: 15%;
+    height: auto;
+}

@@ -1,56 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
+const id = document.getElementById;
+const x = "./img/x.jpg";
+const o = "./img/o.jpg";
+const white = "./img/white.jpg";
+const images = [white, o, x];
+//img.src = "./img/x.jpg";
+
+/*
+JS code:
+    var img = document.createElement("img");
+    img.src = "image.png";
+    var src = document.getElementById("x");
+    src.appendChild(img);
+*/
 
 
-td, th {
-  text-align: center;
-  padding: 8px;
+//x.appendChild(img);
+function img(path) {
+  const img = document.createElement('img');
+  img.src = path;
+  return img;
 }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 50%;
-  hight: 50%;
-   border-style: hidden;
-  
+
+function graphics(state) {
+
+  let i;
+  for (i = 0; i < state.length; i++) {
+
+    id(i+"").childNodes[0].src = images[state[i]];
+
+  }
+
 }
-
-table td {
-  border: 5px solid black;
-}
-
-
-
-
-
-</style>
-</head>
-<body>
-
-<h2>HTML Table</h2>
-
-<table>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-
-  </tr>
-</table>
-
-</body>
-</html>
