@@ -40,6 +40,6 @@ async function train(history, result) {
 }
 
 function evaluate(state){
-    return model.predict(tf.tensor2d(state, [1, 9]));
+    return model.predict(tf.tensor2d(state, [1, 9])).arraySync()[0][0];
 }
 

@@ -125,7 +125,7 @@ const play = pos => () =>{
     history.push(state);
     graphics(state);
 
-    check = checkState(sate);
+    check = checkState(state);
     if(check != -1){
         printEnd(check, player1);
         setTimeout(() => initManual(), 3000);
