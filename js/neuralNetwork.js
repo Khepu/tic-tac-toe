@@ -1,32 +1,42 @@
 const model = tf.sequential();
 
-const input = tf.layers.dense({
-    units: 9,
+const hidden1 = tf.layers.dense({
+    units: 18,
     inputShape: [9],
-    kernelInitializer: 'randomUniform',
-    activation: 'sigmoid'
+    activation: 'relu',
+    useBias: true
 });
 
-const hidden = tf.layers.dense({
-    units: 18,
-    kernelInitializer: 'randomUniform',
-    activation: 'sigmoid'
+const hidden2 = tf.layers.dense({
+    units: 9,
+    activation: 'relu',
+    useBias: true
+});
+
+const hidden3 = tf.layers.dense({
+    units: 3,
+    activation: 'relu',
+    useBias: true
 });
 
 const output = tf.layers.dense({
     units: 1,
-    kernelInitializer: 'randomUniform',
-    activation: 'sigmoid'
+    activation: 'relu',
+    useBias: true
 });
 
-const learing_rate = 0.001;
-const sgdOpt = tf.train.sgd(learing_rate);
+const learing_rate = 0.3;
+const opt = tf.train.adam(learing_rate);
 
-model.add(input);
-model.add(hidden);
+model.add(hidden1);
+model.add(tf.layers.dropout(0.1));
+model.add(hidden2);
+model.add(tf.layers.dropout(0.1));
+model.add(hidden3);
+model.add(tf.layers.dropout(0.1));
 model.add(output);
 model.compile({
-    optimizer: sgdOpt,
+    optimizer: opt,
     loss: tf.losses.meanSquaredError
 });
 
@@ -35,7 +45,7 @@ async function train(history, result) {
         result = 0;
     }
 
-    targets = Array(history.length).fill(result);
+    const targets = Array(history.length).fill(result);
     await model.fit(tf.tensor2d(history, [history.length, 9]), tf.tensor2d(targets, [history.length, 1]));
 }
 

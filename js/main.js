@@ -51,10 +51,31 @@ const checkState = state => {
 const easyBot = state =>
       legalMoves(state, player2).sort(() => 0.5 - Math.random())[0];
 
+const hardBot = state => {
+    const friendlyMoves = legalMoves(state, player2);
+    const friendlyResults = friendlyMoves.map(m => [m, checkState(updateState(state, m, player2))]);
+    const winningMoves = friendlyResults.filter(m => m[1] == player2);
+
+    if (winningMoves.length > 0){
+        return winningMoves[0][0];
+    }
+
+    const enemyMoves = legalMoves(state, player1);
+    const enemyResults = enemyMoves.map(m => [m, checkState(updateState(state, m, player1))]);
+    const losingMoves = enemyResults.filter(m => m[1] == player1);
+    if (losingMoves.length > 0) {
+        return losingMoves[0][0];
+    }
+
+   return friendlyMoves.sort(() => 0.5 - Math.random())[0];
+};
+
+
 const start = async games => {
     const players = [player1, player2];
     let isOver = checkState(state);
     let end = games;
+    let aiwon = 0;
 
     while(end--) {
         let turn = Math.random() < 0.5 ? 0 : 1;
@@ -65,7 +86,7 @@ const start = async games => {
             const player = players[turn];
 
             if (player == 2) {
-                state = updateState(state, easyBot(state), player2);
+                state = updateState(state, hardBot(state), player2);
             } else if (player == 1) {
                 state = legalMoves(state, player1)
                     .map(s => updateState(state, s, player1))
@@ -76,13 +97,16 @@ const start = async games => {
             history.push(state);
             isOver = checkState(state);
         }
+        if (isOver == 2){
+            aiwon++;
+        }
         state = startingState;
         await train(history, isOver);
         history = [state];
         isOver = -1;
         console.log("One more down!!!");
     }
-    return "Done";
+    console.log(aiwon);
 };
 
 const initManual = () => {
