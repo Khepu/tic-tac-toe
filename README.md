@@ -1,5 +1,4 @@
 # tic-tac-toe
-Tic-tac-toe game trained with Reinforcement Learning
 
 ## Start training 
 With epochs being the integer number of epochs you want your model to train, use:
